@@ -1,0 +1,77 @@
+C:\>cd App
+C:\App>cd Apps
+C:\App\Apps>pip install virtualenv
+Collecting virtualenv
+  Downloading virtualenv-20.2.2-py2.py3-none-any.whl (5.7 MB)
+Collecting filelock<4,>=3.0.0
+  Downloading filelock-3.0.12-py3-none-any.whl (7.6 kB)
+Collecting six<2,>=1.9.0
+  Downloading six-1.15.0-py2.py3-none-any.whl (10 kB)
+Collecting appdirs<2,>=1.4.3
+  Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Collecting distlib<1,>=0.3.1
+  Downloading distlib-0.3.1-py2.py3-none-any.whl (335 kB)
+Installing collected packages: filelock, six, appdirs, distlib, virtualenv
+Successfully installed appdirs-1.4.4 distlib-0.3.1 filelock-3.0.12 six-1.15.0 virtualenv-20.2.2
+WARNING: You are using pip version 20.2.3; however, version 20.3.1 is available.
+You should consider upgrading via the 'c:\users\administrator\appdata\local\programs\python\python39\python.exe -m pip install --upgrade pip' command.
+
+C:\App\Apps>virtualenv --python "c:\users\administrator\appdata\local\programs\python\python39\python.exe" env
+created virtual environment CPython3.9.1.final.0-64 in 1859ms
+  creator CPython3Windows(dest=C:\App\Apps\env, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=C:\Users\Administrator\AppData\Local\pypa\virtualenv)
+    added seed packages: pip==20.3.1, setuptools==51.0.0, wheel==0.36.1
+  activators BashActivator,BatchActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+
+C:\App\Apps>env\Scripts\activate
+
+(env) C:\App\Apps>pip install -r requirements.txt
+Collecting Flask==1.1.2
+  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+Collecting Flask-Session==0.3.2
+  Downloading Flask_Session-0.3.2-py2.py3-none-any.whl (7.4 kB)
+Collecting Flask-SQLAlchemy==2.4.4
+  Downloading Flask_SQLAlchemy-2.4.4-py2.py3-none-any.whl (17 kB)
+Collecting httplib2==0.18.1
+  Downloading httplib2-0.18.1-py3-none-any.whl (95 kB)
+Collecting PyMySQL==0.10.1
+  Downloading PyMySQL-0.10.1-py2.py3-none-any.whl (47 kB)
+Collecting redis==3.5.3
+  Downloading redis-3.5.3-py2.py3-none-any.whl (72 kB)
+Collecting six==1.15.0
+  Using cached six-1.15.0-py2.py3-none-any.whl (10 kB)
+Collecting cachelib
+  Downloading cachelib-0.1.1-py3-none-any.whl (13 kB)
+Collecting click>=5.1
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting itsdangerous>=0.24
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+Collecting MarkupSafe>=0.23
+  Downloading MarkupSafe-1.1.1.tar.gz (19 kB)
+Collecting SQLAlchemy>=0.8.0
+  Downloading SQLAlchemy-1.3.20-cp39-cp39-win_amd64.whl (1.2 MB)
+Collecting Werkzeug>=0.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Building wheels for collected packages: MarkupSafe
+  Building wheel for MarkupSafe (setup.py) ... done
+  Created wheel for MarkupSafe: filename=MarkupSafe-1.1.1-py3-none-any.whl size=12629 sha256=e4c5d5e3c8ddf1a6dcb11faf5e5b38b6d00c5f81fe4c6089afdc482299f28149
+  Stored in directory: c:\users\administrator\appdata\local\pip\cache\wheels\e0\19\6f\6ba857621f50dc08e084312746ed3ebc14211ba30037d5e44e
+Successfully built MarkupSafe
+Installing collected packages: MarkupSafe, Werkzeug, Jinja2, itsdangerous, click, SQLAlchemy, Flask, cachelib, six, redis, PyMySQL, httplib2, Flask-SQLAlchemy, Flask-Session
+Successfully installed Flask-1.1.2 Flask-SQLAlchemy-2.4.4 Flask-Session-0.3.2 Jinja2-2.11.2 MarkupSafe-1.1.1 PyMySQL-0.10.1 SQLAlchemy-1.3.20 Werkzeug-1.0.1 cachelib-0.1.1 click-7.1.2 httplib2-0.18.1 itsdangerous-1.1.0 redis-3.5.3 six-1.15.0
+
+(env) C:\App\Apps>python bookshelf\model_cloudsql.py
+All tables created
+
+(env) C:\App\Apps>python main.py
+ * Serving Flask app "bookshelf" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 740-243-428
+ * Running on http://0.0.0.0:8081/ (Press CTRL+C to quit)
