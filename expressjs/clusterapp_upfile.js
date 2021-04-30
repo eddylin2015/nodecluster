@@ -1,6 +1,6 @@
 const cluster = require('cluster');
 const http = require('http');
-
+const formidable = require('formidable');
 if (cluster.isMaster) {
 
   // 跟踪 http 请求
@@ -32,6 +32,35 @@ if (cluster.isMaster) {
   http.Server((req, res) => {
     const { headers, method, url } = req;
     if (req.method == 'POST') {
+      // parse a file upload
+      console.log(req.url)
+      let uploadDir=`xml`;
+      if(req.url.indexOf('s=1')>-1)
+      {
+         uploadDir=`xml/1`;
+      }
+    let form = formidable(
+      { multiples: true,
+        uploadDir: uploadDir,
+        keepExtensions: true,
+        maxFileSize: 4000 * 1024 * 1024,
+      }
+    );
+ 
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        console.error(err);
+        res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain' });
+        res.end(String(err));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ fields, files }, null, 2));
+    });
+ 
+    return;
+
+      /*
       let body = [];
       let len=0;
       req.on('error', (err) => {
@@ -44,10 +73,10 @@ if (cluster.isMaster) {
          //body = Buffer.concat(body).toString();
          console.log(len);
          res.end(`Body accepted ${len} . `); 
-      });
+      });*/
     }else {
       res.writeHead(200, { 'Content-Type': 'text/html' })
-      res.end(`<form action="markreportnodejsupload" enctype="multipart/form-data" method="post">
+      res.end(`<form action="" enctype="multipart/form-data" method="post">
        <input type="file" name="upload" multiple="multiple">
        <input type="submit" value="Upload">
        </form>
