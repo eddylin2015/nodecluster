@@ -1,6 +1,8 @@
 const cluster = require('cluster');
 const http = require('http');
 const formidable = require('formidable');
+const path = require('path');
+var fs = require("fs");
 if (cluster.isMaster) {
 
   // 跟踪 http 请求
@@ -35,10 +37,7 @@ if (cluster.isMaster) {
       // parse a file upload
       console.log(req.url)
       let uploadDir=`xml`;
-      if(req.url.indexOf('s=1')>-1)
-      {
-         uploadDir=`xml/1`;
-      }
+//      if(req.url.indexOf('s=1')>-1){uploadDir=`xml/1`; }
     let form = formidable(
       { multiples: true,
         uploadDir: uploadDir,
@@ -76,11 +75,15 @@ if (cluster.isMaster) {
       });*/
     }else {
       res.writeHead(200, { 'Content-Type': 'text/html' })
+      stream = fs.createReadStream(path.join(__dirname, 'index.html'));
+      stream.pipe(res);
+      /*
       res.end(`<form action="" enctype="multipart/form-data" method="post">
        <input type="file" name="upload" multiple="multiple">
        <input type="submit" value="Upload">
        </form>
        `);
+       */
     }
   // 通知 master 进程接收到了请求
     process.send({ cmd: 'notifyRequest' });
@@ -89,4 +92,3 @@ if (cluster.isMaster) {
 
 //https://nodejs.org/en/knowledge/HTTP/servers/how-to-handle-multipart-form-data/
 //How to handle multipart form data
-  
