@@ -9,7 +9,7 @@ if (cluster.isMaster) {
   let numReqs = 0;
   setInterval(() => {
     console.log(`numReqs = ${numReqs}`);
-  }, 1000);
+  }, 10000);
 
   // 计算请求数目
   function messageHandler(msg) {
@@ -35,30 +35,28 @@ if (cluster.isMaster) {
     const { headers, method, url } = req;
     if (req.method == 'POST') {
       // parse a file upload
-      console.log(req.url)
       let uploadDir=`xml`;
-//      if(req.url.indexOf('s=1')>-1){uploadDir=`xml/1`; }
+      //if(req.url.indexOf('s=1')>-1){uploadDir=`xml/1`; }
     let form = formidable(
       { multiples: true,
         uploadDir: uploadDir,
         keepExtensions: true,
-        maxFileSize: 4000 * 1024 * 1024,
+        maxFileSize: 8000 * 1024 * 1024,
       }
     );
- 
-    form.parse(req, (err, fields, files) => {
+   form.parse(req, (err, fields, files) => {
       if (err) {
         console.error(err);
         res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain' });
         res.end(String(err));
         return;
       }
+      let file=files.file1
+      if(file) fs.promises.rename(file.path, path.join(form.uploadDir, file.name));
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ fields, files }, null, 2));
     });
- 
     return;
-
       /*
       let body = [];
       let len=0;
