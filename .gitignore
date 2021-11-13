@@ -1,3 +1,6 @@
+rustapp/target/
+rustapp/Cargo.lock
+
 # Logs
 logs
 *.log
