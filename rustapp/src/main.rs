@@ -47,6 +47,10 @@ async fn process(stream: TcpStream) -> Result<(), Box<dyn Error>> {
 async fn respond(req: Request<()>) -> Result<Response<String>, Box<dyn Error>> {
     let mut response = Response::builder();
     let body = match req.uri().path() {
+        "/" => {
+            response = response.header("Content-Type", "text/plain");
+            "Hello, World!".to_string()
+        }        
         "/plaintext" => {
             response = response.header("Content-Type", "text/plain");
             "Hello, World!".to_string()
