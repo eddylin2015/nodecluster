@@ -1,0 +1,31 @@
+{
+  "name": "fileshare",
+  "version": "1.2.0",
+  "description": "Share static file throught web. ",
+  "main": "fileshare.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddylin2015/fileshare.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "website",
+    "fileshare"
+  ],
+  "author": "eddylin2015@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eddylin2015/fileshare/issues"
+  },
+  "homepage": "https://github.com/eddylin2015/fileshare#readme",
+  "dependencies": {
+    "express": "^4.16.0",
+    "formidable": "^1.2.6",
+    "multer": "^1.3.0",
+    "pug": "^3.0.2"
+  }
+}
