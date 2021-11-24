@@ -102,9 +102,7 @@ app.use(function (req, res, next) {
             }
             let file = files.file1
             if(ignore_files.indexOf(file.name)==-1) {
-            let ofilename=file.originalFilename.split("/")
-            console.log(ofilename)
-            ofilename=ofilename[ofilename.length-1]
+            let ofilename=file.originalFilename.replace(/[/]/g, "---");;
             if (file) fs.promises.rename(file.filepath, path.join(form.uploadDir, ofilename));
                res.writeHead(200, { 'Content-Type': 'application/json' });
                res.end(JSON.stringify({ fields, files }, null, 2));
