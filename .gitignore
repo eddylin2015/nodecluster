@@ -75,3 +75,5 @@ env/
 flask/config.py
 */config.py
 config.py
+*/www/
+fileshare2/www/
