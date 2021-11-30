@@ -5,22 +5,15 @@ const formidable = require('formidable');
 const process = require('process');
 const url_utils = require('url');
 const path = require('path');
-const hostdir = "www";
 const uploadDir =process.cwd()+"/www";
-const port = 82;
+const port = 81;
 const ignore_files=["ignore.txt","app.yaml","config.py","__pycache__","static", "tox.ini","model_cloudsql.py","mySession.1.py","mySession.py","storage.py","main.py","crud.py"]
-var express = require('express');
-var app = express();
-app.use(express.static(path.join(__dirname, 'public')));
-app.disable('x-powered-by');
-app.disable('etag');
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
-//app.use('/internal/photo', require('./routers/photo/api'));
 function down_pip_file (filename,  res) {
+    filename=decodeURI(filename)
     let mimetype_ =  mimetype(filename);
     console.log('read static file_pipe:' + filename);
+
     try {
       if (fs.existsSync(filename)) {
         if(mimetype_=="NULL"){
@@ -61,6 +54,15 @@ function down_pip_file (filename,  res) {
     return "NULL";
   };
 
+var express = require('express');
+var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
+app.disable('x-powered-by');
+app.disable('etag');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+//app.use('/internal/photo', require('./routers/photo/api'));
 function checkuser(req) {return true;}
 app.use(function (req, res, next) {
     if (!checkuser(req)) return res.end("U are hacker!")
@@ -69,16 +71,11 @@ app.use(function (req, res, next) {
     if (url[url.length - 1] == "/") { subpath = url }
     else {
         let l_ = url.split("/");
-        for (let i = 0; i < l_.length - 1; i++) 
-        { 
-            if(l_[i].length>0){
-                subpath += l_[i] + "/" 
-            }
-        }
+        for (let i = 0; i < l_.length - 1; i++) { subpath += l_[i] + "/" }
     }
-    //console.log(method, url, subpath)
+    console.log(method, url, subpath)
     subpath=subpath.replace(/%25/g,"%").replace(/[/]+/g,"/")   
-    let curr_path =(uploadDir+"/" +decodeURI(subpath)).replace(/[/]+/g,"/")   ;
+    let curr_path =decodeURI(uploadDir) +decodeURI(subpath);
     if (req.url.indexOf('/makedir') > -1) {
         var query = url_utils.parse(req.url, true).query;
         if (typeof query.dirname != 'undefined') {
@@ -93,17 +90,14 @@ app.use(function (req, res, next) {
     } else if (req.url.indexOf('/pic') > -1) {
         res.writeHead(200, { 'content-type': 'text/html; charset=UTF-8' });
         res.write(`<meta name="viewport" content="width=device-width, initial-scale=1"></meta>`);
-        var files = fs.readdirSync(curr_path);
+        var files = fs.readdirSync(decodeURI(curr_path));
         //res.write("<a href='/Up_Step'>..</a><br>");
         files.forEach(function (file) {
             let file_stat = fs.statSync(curr_path + "/" + file);
-            if (file.toUpperCase().indexOf(".JPG") > -1 
-            || file.toUpperCase().indexOf(".JPEG") > -1 
-            || file.toUpperCase().indexOf(".BMP") > -1 
-            || file.toUpperCase().indexOf(".PNG") > -1 
-            || file.toUpperCase().indexOf(".GIF") > -1) {
+            if (file.toUpperCase().indexOf(".JPEG") > -1 ||file.toUpperCase().indexOf(".JPG") > -1 || file.toUpperCase().indexOf(".PNG") > -1 || file.toUpperCase().indexOf(".GIF") > -1) {
                 if (subpath == "/") subpath = ""
-                res.write(`<img width=100% src=/${subpath}/down?file=` + encodeURI(file) + ">" + file + "<br>");
+                subpath= subpath.replace(/[/]+/g,"/")         
+                res.write(`<img width=100% src=${subpath}/down?file=` + encodeURI(file) + ">" + file + "<br>");
             }
         });
         res.end();
@@ -131,16 +125,16 @@ app.use(function (req, res, next) {
     else if (req.url.indexOf('/down?file=') > -1) {
         var query = url_utils.parse(req.url, true).query;
         if (typeof query.file != 'undefined') {
-            let file_path =(curr_path+"/" +decodeURI(query.file)).replace(/[/]+/g,"/")   ;
-            
-            down_pip_file(file_path, res)
+            let filepath=curr_path + "/" + decodeURI(query.file);
+            filepath =filepath.replace(/[/]+/g,"/")         
+            down_pip_file(filepath, res)
         }
         return;
     }
     else if (req.method == 'POST') {
         // parse a file upload
         //if(req.url.indexOf('s=1')>-1){uploadDir=`xml/1`; }
-        curr_path = decodeURI(curr_path).replace("//", "/")
+        curr_path = decodeURI(curr_path).replace(/[/]+/g,"/")         
         let form = formidable(
             {
                 multiples: true,
@@ -158,8 +152,8 @@ app.use(function (req, res, next) {
             }
             let file = files.file1
             if(ignore_files.indexOf(file.name)==-1) {
-            let ofilename=file.originalFilename.replace(/[/]/g, "---");;
-            if (file) fs.promises.rename(file.filepath, path.join(form.uploadDir, ofilename));
+            let ofilename=file.name.replace(/[/]/g, "---");;
+            if (file) fs.promises.rename(file.path, path.join(form.uploadDir, ofilename));
                res.writeHead(200, { 'Content-Type': 'application/json' });
                res.end(JSON.stringify({ fields, files }, null, 2));
             }else{
@@ -175,7 +169,7 @@ app.use(function (req, res, next) {
         let file_list = []
         files.forEach(function (file) {
             if(ignore_files.indexOf(file)==-1) {
-            let file_stat = fs.statSync(curr_path + "/" + file);
+            let file_stat = fs.statSync(decodeURI(curr_path + "/" + file));
             if (file_stat.isDirectory()) {
                 // filelist = walkSync(dir + file + '/', filelist);
                 if (subpath == "") {

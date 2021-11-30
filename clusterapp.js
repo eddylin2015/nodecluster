@@ -30,6 +30,7 @@ function eachWorker(callback) {
   // Fork workers.
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
+    break;
   }
   for(const id in cluster.workers){
      cluster.workers[id].on('message',msghandler);
@@ -47,7 +48,7 @@ function eachWorker(callback) {
     res.writeHead(200);
     res.end(`hello world ${workReqs}   ${cluster.worker.id}\n`);
     process.send({cmd:'notifyRequest'});
-  }).listen(8000);
+  }).listen(8081);
 
   process.on('message', (msg) => {
     if (msg.cmd === 'workReqs') {
