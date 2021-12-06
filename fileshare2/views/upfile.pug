@@ -78,23 +78,29 @@
     }
 </head>
 style.
+  * { box-sizing: border-box;}
   .grid-container {
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: auto auto;
+    grid-gap: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));/* auto auto;*/
     background-color: #2196F3;
     padding: 10px;
   }
-  .grid-item {
+  [class*="grid-item-"] {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 30px;
+  }  
+  .grid-item-1 {
     /*text-align: center;*/
   }
+  .grid-item-2 {
+    grid-column: auto / span 2;  
+  }  
 <body>
 div.grid-container
-  div.grid-item(style="vertical-align: top;text-align: left;")
+  div.grid-item-1(style="vertical-align: top;text-align: left;")
     h2 HTML5 File Upload</h2>
     a(href="pic")
       button 
@@ -112,11 +118,11 @@ div.grid-container
     div#status_file_list
     ul#listing
 
-  div.grid-item(style="vertical-align: top;text-align: left;")
+  div.grid-item-2(style="vertical-align: top;text-align: left;")
     each _f in file_list
       div !{_f}
 
-  div.grid-item(style="vertical-align: top;text-align: left;")
+footer(style="vertical-align: top;text-align: left;")
     div help:
     div /dir
     div /pic
