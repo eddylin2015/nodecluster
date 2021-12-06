@@ -6,7 +6,7 @@ const process = require('process');
 const url_utils = require('url');
 const path = require('path');
 const uploadDir =process.cwd()+"/www";
-const port = 81;
+const port = 82;
 const ignore_files=["ignore.txt","app.yaml","config.py","__pycache__","static", "tox.ini","model_cloudsql.py","mySession.1.py","mySession.py","storage.py","main.py","crud.py"]
 
 function down_pip_file (filename,  res) {
@@ -152,8 +152,12 @@ app.use(function (req, res, next) {
             }
             let file = files.file1
             if(ignore_files.indexOf(file.name)==-1) {
-            let ofilename=file.name.replace(/[/]/g, "---");;
-            if (file) fs.promises.rename(file.path, path.join(form.uploadDir, ofilename));
+            let ofilename=null;
+            if(file.originalFilename){ofilename=file.originalFilename.replace(/[/]/g, "---");}
+            if(file.name){ofilename=file.name.replace(/[/]/g, "---");}
+            let ofilepath=file.path
+            if(file.filepath){ofilepath=file.filepath;}
+            if (file) fs.promises.rename(ofilepath, path.join(form.uploadDir, ofilename));
                res.writeHead(200, { 'Content-Type': 'application/json' });
                res.end(JSON.stringify({ fields, files }, null, 2));
             }else{
