@@ -68,10 +68,11 @@ nconf
     OAUTH2_CALLBACK: '/auth/google/callback',
     PORT: 8080,
     // Set this a secret string of your choosing
-    SECRET: 'keyboardcatcat',
+    SECRET: 'keyboardcatcat123123',
     MYSQL_250_host: '127.0.0.1',
     MYSQL_250_user: 'root',
-    MYSQL_250_password: 'password',
+    MYSQL_250_db: 'bookshelf',
+    MYSQL_250_password: '123123',
     PHP_HOST:'127.1.1.114',
     PHP_PORT:'8080',
     PY_HOST:'127.1.1.114',
