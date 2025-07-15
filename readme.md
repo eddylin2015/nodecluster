@@ -98,4 +98,18 @@ http {
     }
 }
 
+
 ```
+
+統一用戶登錄:
+
+flask\assetmng\__init__.py
+
+```python
+    from .mySession import MySessionInterface    
+    app.session_interface = MySessionInterface()
+    # or
+    #from flask_session import Session
+    #Session(app)
+```
+
