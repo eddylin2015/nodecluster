@@ -36,22 +36,31 @@ class MySessionInterface(SessionInterface):
         return None
    
     def open_session(self, app, request):
-        csid = request.cookies.get(app.session_cookie_name)
+        #csid = request.cookies.get(app.session_cookie_name)
+        csid = request.cookies.get(app.config['SESSION_COOKIE_NAME'])
         if csid  is None:
             csid = self._generate_sid()
             return self.session_class(sid=csid)
         sid=csid[4:csid.find(".")]
         list = ["sess:"+sid]
+        print(list)
         my_bytes_value = self.redis.mget(list)[0]
         if my_bytes_value is None:
             return self.session_class(sid=csid)
+        print(my_bytes_value.decode('utf8'))            
         my_json = my_bytes_value.decode('utf8').replace("'", '"').replace("passport", 'profile')
-        #print(my_json)
+        print(my_json)
         #print('- ' * 20)
         dict = json.loads(my_json)
+        print(dict)
+        if dict["profile"].get("user") is None:
+            return self.session_class(sid=sid)
+        dict['profile']["id"]=dict['profile']["user"]
         return self.session_class(dict, sid=sid)
 
     def save_session(self, app, session, response):
+        print("session")
+        print(session)
         val = json.dumps(dict(session))
         #keydict = {}
         #keydict['sess:'+session.sid] = val
