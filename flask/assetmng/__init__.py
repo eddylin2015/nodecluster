@@ -23,8 +23,8 @@ import httplib2
 import redis
 pool=redis.ConnectionPool(host='127.0.0.1',port=6379)
 
-from flask_session import Session
-# from .mySession import MySessionInterface
+
+
 # oauth2 = UserOAuth2()
 # [END include]
 
@@ -74,7 +74,10 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
     app.config['SESSION_KEY_PREFIX'] = 'sess:'  # 保存到session中的值的前缀
     app.config['SESSION_REDIS'] = redis.Redis(host='127.0.0.1',port=6379)  
     
+    #from .mySession import MySessionInterface    
     #app.session_interface = MySessionInterface()
+    # or
+    from flask_session import Session
     Session(app)
     
     #se=Session

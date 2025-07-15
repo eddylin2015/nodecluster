@@ -48,29 +48,29 @@ C:\code\mysql-8.0.42-winx64> bin\mysqld --defaults-file=my.ini
 C:\code\mysql-8.0.42-winx64> bin\mysql -u root -p
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';
 mysql> CREATE SCHEMA `bookshelf` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
-Query OK, 1 row affected (0.01 sec)
 mysql> CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
-    ->     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    ->     `title` VARCHAR(255) NULL,
-    ->     `author` VARCHAR(255) NULL,
-    ->     `publishedDate` VARCHAR(255) NULL,
-    ->     `imageUrl` VARCHAR(255) NULL,
-    ->     `description` TEXT NULL,
-    ->     `createdBy` VARCHAR(255) NULL,
-    ->     `createdById` VARCHAR(255) NULL,
-    ->   PRIMARY KEY (`id`));
-Query OK, 0 rows affected (0.03 sec))
-
+         `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+         `title` VARCHAR(255) NULL,
+         `author` VARCHAR(255) NULL,
+         `publishedDate` VARCHAR(255) NULL,
+         `imageUrl` VARCHAR(255) NULL,
+         `description` TEXT NULL,
+         `createdBy` VARCHAR(255) NULL,
+         `createdById` VARCHAR(255) NULL,
+       PRIMARY KEY (`id`));
 
 (env) c:\code>cd nodecluster\flask
 (env) c:\code\nodecluster\flask>pip install -r requirement.txt
 (env) c:\code\nodecluster\flask>copy config.txt config.py
 (env) c:\code\nodecluster\flask>python main.py
  * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:80
- * Running on http://192.168.102.39:80
+ * Running on http://127.0.0.1:8082
 INFO:werkzeug:Press CTRL+C to quit
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 131-401-995
+
+(env) c:\code\nodecluster\flask>redis-cli
+keys sess*
+hgetall Users
 ```
