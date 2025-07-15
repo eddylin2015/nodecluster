@@ -1,7 +1,9 @@
-import intWeb
 import config
+#import intWeb
+#app = intWeb.create_app(config)
 
-app = intWeb.create_app(config)
+import assetmng
+app = assetmng.create_app(config)
 
 # This is only used when running locally. When running live, gunicorn runs
 # the application.
