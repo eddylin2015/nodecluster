@@ -10,3 +10,5 @@ rustapp/(tinyhttpd)
 ## nodejs python rust 編程Async多線程調度黑箱測試
 
 ## 測試數據之后公佈
+＃＃ redis 
+https://github.com/microsoftarchive/redis/releases
