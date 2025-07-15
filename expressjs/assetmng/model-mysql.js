@@ -16,10 +16,10 @@
 const mysql = require('mysql');
 const config = require('../config');
 const options = {
-    host: config.get('CLOUDSQL_HOST'),
-    user: config.get('CLOUDSQL_USER'),
-    password: config.get('CLOUDSQL_PASSWORD'),
-    database: config.get('CLOUDSQL_DATABASE'),
+    host: config.get('MYSQL_250_host'),
+    user: config.get('MYSQL_250_user'),
+    password: config.get('MYSQL_250_password'),
+    database: config.get('MYSQL_250_db'),
 };
 
 const pool = mysql.createPool(options);
@@ -29,7 +29,7 @@ function list( userId , cb) {
         if(err){cb(err);return;}
         // Use the connection
         connection.query(
-            'SELECT * FROM `assets` order by id DESC ',[],
+            'SELECT * FROM `books` order by id DESC ',[],
             (err, results) => {
                 if (err) {
                     cb(err);
@@ -46,7 +46,7 @@ function listMore( limit,  token, cb) {
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
         connection.query(
-            'SELECT *  FROM `assets` order by id DESC LIMIT ? OFFSET ?', //, DAYOFWEEK(logDate)-1 dw
+            'SELECT *  FROM `books` order by id DESC LIMIT ? OFFSET ?', //, DAYOFWEEK(logDate)-1 dw
             [ limit, token],
             (err, results) => {
                 if (err) {
@@ -64,7 +64,7 @@ function listBy(id, limit, token, cb) {
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
         connection.query(
-            'SELECT * FROM `assets` where createdById = ? order by id desc  LIMIT ? OFFSET ?',
+            'SELECT * FROM `books` where createdById = ? order by id desc  LIMIT ? OFFSET ?',
             [ id,limit, token],
             (err, results) => {
                 if (err) {
@@ -85,7 +85,7 @@ function create( data, cb) {
     
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
-        connection.query('INSERT INTO `assets` SET ? ', [data], (err, res) => {
+        connection.query('INSERT INTO `books` SET ? ', [data], (err, res) => {
             if (err) {
                 cb(err);
                 return;
@@ -102,7 +102,7 @@ function read( id, cb) {
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
         connection.query(
-            'SELECT * FROM `assets` WHERE `id` = ? ', id, (err, results) => {
+            'SELECT * FROM `books` WHERE `id` = ? ', id, (err, results) => {
                 if (!err && !results.length) {
                     err = {
                         code: 404,
@@ -122,7 +122,7 @@ function update( id, data, cb) {
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
         connection.query(
-            'UPDATE `assets` SET ? WHERE `id` = ?  ', [data, id], (err) => {   //and `createdById` = ?
+            'UPDATE `books` SET ? WHERE `id` = ?  ', [data, id], (err) => {   //and `createdById` = ?
                 if (err) {
                     cb(err);
                     return;
@@ -136,7 +136,7 @@ function update( id, data, cb) {
 function _delete(userid, id ,cb) {
     pool.getConnection(function (err, connection) {
         if(err){cb(err);return;}
-        connection.query('DELETE FROM `assets` WHERE createdById=?  and `id` = ? ',[ userid,id ],  cb);
+        connection.query('DELETE FROM `books` WHERE createdById=?  and `id` = ? ',[ userid,id ],  cb);
         connection.release();
     });
 }
@@ -152,6 +152,7 @@ module.exports = {
     delete: _delete
 };
 /*
+CREATE SCHEMA `bookshelf` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NULL,
