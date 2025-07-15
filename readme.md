@@ -12,6 +12,7 @@ rustapp/(tinyhttpd)
 ## 測試數據之后公佈
 
 ## redis express mysql
+```cmd
 https://git-scm.com/downloads/win
 https://github.com/microsoftarchive/redis/releases
 https://nodejs.org/en/download/current
@@ -59,3 +60,4 @@ mysql> CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
     ->     `createdById` VARCHAR(255) NULL,
     ->   PRIMARY KEY (`id`));
 Query OK, 0 rows affected (0.03 sec))
+```
