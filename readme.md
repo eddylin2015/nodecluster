@@ -73,4 +73,29 @@ INFO:werkzeug: * Debugger PIN: 131-401-995
 (env) c:\code\nodecluster\flask>redis-cli
 keys sess*
 hgetall Users
+
+https://nginx.org/en/download.html
+
+nginx
+nginx -t
+nginx -s stop
+nginx\conf\nginx.conf
+
+events {
+    worker_connections  1024;
+}
+http {
+    server {
+        listen 88;
+        server_name example.com;
+        location /assets/ {
+            proxy_pass http://localhost:8082/assets/;
+        }
+        location / {
+            proxy_pass http://localhost:8081;
+            
+        }
+    }
+}
+
 ```
