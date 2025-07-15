@@ -60,4 +60,16 @@ mysql> CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
     ->     `createdById` VARCHAR(255) NULL,
     ->   PRIMARY KEY (`id`));
 Query OK, 0 rows affected (0.03 sec))
+
+
+(env) c:\code>cd nodecluster\flask
+(env) c:\code\nodecluster\flask>pip install -r requirement.txt
+(env) c:\code\nodecluster\flask>python main.py
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://192.168.102.39:80
+INFO:werkzeug:Press CTRL+C to quit
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 131-401-995
 ```
