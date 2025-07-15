@@ -64,6 +64,7 @@ Query OK, 0 rows affected (0.03 sec))
 
 (env) c:\code>cd nodecluster\flask
 (env) c:\code\nodecluster\flask>pip install -r requirement.txt
+(env) c:\code\nodecluster\flask>copy config.txt config.py
 (env) c:\code\nodecluster\flask>python main.py
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:80
