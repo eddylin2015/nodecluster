@@ -98,6 +98,6 @@ if (nconf.get('DATA_BACKEND') === 'cloudsql') {
 
 function checkConfig (setting) {
   if (!nconf.get(setting)) {
-    throw new Error(`You must set ${setting} as an environment variable or in config.json!`);
+ //   throw new Error(`You must set ${setting} as an environment variable or in config.json!`);
   }
 }
