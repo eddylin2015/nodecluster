@@ -39,13 +39,13 @@ def from_sql(row):
 
 
 class Asset(db.Model):
-    __tablename__ = 'assets'
+    __tablename__ = 'books'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     author = db.Column(db.String(255))
-    logDate = db.Column(db.String(255))
-    context = db.Column(db.String(255))
+    #logDate = db.Column(db.String(255))
+    #context = db.Column(db.String(255))
     imageUrl = db.Column(db.String(255))
     description = db.Column(db.String(4096))
     createdBy = db.Column(db.String(255))
