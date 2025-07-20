@@ -1,30 +1,8 @@
 C:\>cd App
 C:\App>cd Apps
-C:\App\Apps>pip install virtualenv
-Collecting virtualenv
-  Downloading virtualenv-20.2.2-py2.py3-none-any.whl (5.7 MB)
-Collecting filelock<4,>=3.0.0
-  Downloading filelock-3.0.12-py3-none-any.whl (7.6 kB)
-Collecting six<2,>=1.9.0
-  Downloading six-1.15.0-py2.py3-none-any.whl (10 kB)
-Collecting appdirs<2,>=1.4.3
-  Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
-Collecting distlib<1,>=0.3.1
-  Downloading distlib-0.3.1-py2.py3-none-any.whl (335 kB)
-Installing collected packages: filelock, six, appdirs, distlib, virtualenv
-Successfully installed appdirs-1.4.4 distlib-0.3.1 filelock-3.0.12 six-1.15.0 virtualenv-20.2.2
-WARNING: You are using pip version 20.2.3; however, version 20.3.1 is available.
-You should consider upgrading via the 'c:\users\administrator\appdata\local\programs\python\python39\python.exe -m pip install --upgrade pip' command.
-
-C:\App\Apps>virtualenv --python "c:\users\administrator\appdata\local\programs\python\python39\python.exe" env
-created virtual environment CPython3.9.1.final.0-64 in 1859ms
-  creator CPython3Windows(dest=C:\App\Apps\env, clear=False, no_vcs_ignore=False, global=False)
-  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=C:\Users\Administrator\AppData\Local\pypa\virtualenv)
-    added seed packages: pip==20.3.1, setuptools==51.0.0, wheel==0.36.1
-  activators BashActivator,BatchActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
-
+rem C:\App\Apps>virtualenv --python "c:\users\administrator\appdata\local\programs\python\python39\python.exe" env
+C:\App\Apps>python -m venv env
 C:\App\Apps>env\Scripts\activate
-
 (env) C:\App\Apps>pip install -r requirements.txt
 Collecting Flask==1.1.2
   Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)

@@ -1,4 +1,4 @@
-# node.js python rust TCP連接比較
+# node.js python rust go TCP連接比較
 
 clusterapp.js     
 py_flask.py  
@@ -7,11 +7,12 @@ rustapp/(tinyhttpd)
 
 ## 測試88mph的响應數量
 
-## nodejs python rust 編程Async多線程調度黑箱測試
+## nodejs python rust go 編程Async多線程調度黑箱測試
 
 ## 測試數據之后公佈
 
 ## redis express mysql
+
 ```cmd
 https://git-scm.com/downloads/win
 https://github.com/microsoftarchive/redis/releases
@@ -31,13 +32,14 @@ https://nodejs.org/en/download/current
 (env) c:\code\nodecluster\expressjs>node app
 App listening on port 8081
 
+rem mysql 8.0.4x
 https://dev.mysql.com/downloads/mysql/
-8.0.4x
-C:\code\mysql-8.0.42-winx64> bin\mysqld --initialize --console
-2025-07-15T01:58:39.853512Z 0 [System] [MY-013169] [Server] C:\code\mysql-8.0.42-winx64\bin\mysqld.exe (mysqld 8.0.42) initializing of server in progress as process 6904
-2025-07-15T01:58:41.806695Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: jRh,=wpX2y*Q
-PS C:\code\mysql-8.0.42-winx64>my.ini
 
+C:\code\mysql-8.0.42-winx64> bin\mysqld --initialize --console
+[System] [MY-013169] [Server] \bin\mysqld.exe (mysqld 8.0.42) initializing of server 
+[Note] [MY-010454] [Server] A temporary password is generated for root@localhost: jRh,=wpX2y*Q
+
+C:\code\mysql-8.0.42-winx64>type my.ini
 [mysqld]
 basedir=C:/code/mysql-8.0.42-winx64/mysql
 datadir=C:/code/mysql-8.0.42-winx64/data
@@ -46,9 +48,9 @@ sql_mode=TRADITIONAL
 
 C:\code\mysql-8.0.42-winx64> bin\mysqld --defaults-file=my.ini
 C:\code\mysql-8.0.42-winx64> bin\mysql -u root -p
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';
-mysql> CREATE SCHEMA `bookshelf` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
-mysql> CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123';
+CREATE SCHEMA `bookshelf` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
          `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
          `title` VARCHAR(255) NULL,
          `author` VARCHAR(255) NULL,
@@ -66,9 +68,6 @@ mysql> CREATE TABLE IF NOT EXISTS `bookshelf`.`books` (
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8082
 INFO:werkzeug:Press CTRL+C to quit
-INFO:werkzeug: * Restarting with stat
-WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 131-401-995
 
 (env) c:\code\nodecluster\flask>redis-cli
 keys sess*
@@ -113,3 +112,6 @@ flask\assetmng\__init__.py
     #Session(app)
 ```
 
+## 參考 makzan-Beginning-Python-Course
+
+https://github.com/makzan/Beginning-Python-Course/
